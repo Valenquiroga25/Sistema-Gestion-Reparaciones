@@ -1,6 +1,6 @@
 # TPO_Objetos
 Trabajo practico de Paradigma Orientado a Objetos
-Profesor: Claudio Godio
+Profesor: Claudio Godio\n
 Equipo:
 Ramiro Landajo
 Valentin Quiroga
