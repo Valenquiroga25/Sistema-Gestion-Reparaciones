@@ -28,11 +28,7 @@ public class Tecnico {
         this.reparaciones.add(reparacion);
     }
     public float calcularSueldo(){
-        float total = 0;
-        total += this.salarioBase;
-        for (Reparacion reparacion: reparaciones){
-
-        }
+        return 0f;
     }
     public String getNroDocumento(){
         return nroDocumento;
