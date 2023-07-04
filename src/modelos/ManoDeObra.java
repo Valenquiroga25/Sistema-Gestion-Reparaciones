@@ -1,13 +1,14 @@
 package modelos;
 
 public class ManoDeObra {
-
+    private static int contador;
     private int codigoManoDeObra;
     private String descripcion;
     private float precioPorHora;
+    private TareaPorReparacion tareaPorReparacion;
 
-    public ManoDeObra(int codigoManoDeObra, String descripcion, float precioPorHora) {
-        this.codigoManoDeObra = codigoManoDeObra;
+    public ManoDeObra(String descripcion, float precioPorHora) {
+        this.codigoManoDeObra = ++contador;
         this.descripcion = descripcion;
         this.precioPorHora = precioPorHora;
     }
@@ -23,5 +24,8 @@ public class ManoDeObra {
     }
     public float getPrecioPorHora() {
         return precioPorHora;
+    }
+    public TareaPorReparacion getTareaPorReparacion(){
+        return tareaPorReparacion;
     }
 }

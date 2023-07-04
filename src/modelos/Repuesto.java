@@ -1,18 +1,21 @@
 package modelos;
 
 public class Repuesto {
-
+    private static int contador;
     private int codigoRepuesto;
     private String descripcion;
     private float precio;
 
-    public Repuesto(int codigoRepuesto, String descripcion, float precio) {
-        this.codigoRepuesto = codigoRepuesto;
+    public Repuesto(String descripcion, float precio) {
+        this.codigoRepuesto = ++contador;
         this.descripcion = descripcion;
         this.precio = precio;
     }
 
     public float getPrecio() {
         return precio;
+    }
+    public boolean soyEseRepuesto(int codigoRepuesto){
+        return this.codigoRepuesto == codigoRepuesto;
     }
 }

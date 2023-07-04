@@ -1,12 +1,10 @@
 package modelos;
 
-public class TareasPorReparacion {
-    private Reparacion reparacion;
+public class TareaPorReparacion {
     private ManoDeObra manoDeObra;
     private int horasEmpleadas;
 
-    public TareasPorReparacion(Reparacion reparacion, ManoDeObra manoDeObra, int horasEmpleadas) {
-        this.reparacion = reparacion;
+    public TareaPorReparacion(ManoDeObra manoDeObra, int horasEmpleadas) {
         this.manoDeObra = manoDeObra;
         this.horasEmpleadas = horasEmpleadas;
     }
@@ -15,6 +13,8 @@ public class TareasPorReparacion {
         return horasEmpleadas;
     }
     public float calcularSubtotalTarea(){
-        return 0f;
+        float total = 0;
+        total += (manoDeObra.getPrecioPorHora() * horasEmpleadas);
+        return total;
     }
 }

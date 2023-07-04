@@ -1,5 +1,9 @@
 package modelos;
 
+import excepciones.MesInvalidoException;
+
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +31,26 @@ public class Tecnico {
     public void agregarReparacion(Reparacion reparacion){
         this.reparaciones.add(reparacion);
     }
-    public float calcularSueldo(){
-        return 0f;
+    public float calcularSueldo(int mes) throws MesInvalidoException {
+        if (mes > 12 || mes < 1){
+            throw new MesInvalidoException("El mes ingresado es invalido.");
+        }
+        float total = 0;
+        total += this.salarioBase;
+        for (Reparacion reparacion: reparaciones){
+            if ((reparacion.getFecha().getYear() == LocalDate.now().getYear()) && (reparacion.getFecha().getMonth() == Month.of(mes)) && (reparacion.reparacionTerminada())){
+                List<Tecnico> tecnicos = reparacion.getTecnicos();
+                for (Tecnico tecnico: tecnicos){
+                    if (this.nroDocumento.equals(tecnico.nroDocumento)){
+                        int indice = tecnicos.indexOf(tecnico);
+                        List<TareaPorReparacion> tareas = reparacion.getTareasPorReparacion();
+                        TareaPorReparacion tarea = tareas.get(indice);
+                        total += (tarea.calcularSubtotalTarea() * 0.1);
+                    }
+                }
+            }
+        }
+        return total;
     }
     public String getNroDocumento(){
         return nroDocumento;
