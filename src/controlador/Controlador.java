@@ -2,17 +2,24 @@ package controlador;
 
 import modelos.*;
 
+import javax.naming.ldap.Control;
 import java.time.Year;
 import java.util.Date;
+import java.util.List;
 
 public class Controlador {
+    private List<Cliente> clientes;
+    private List<ManoDeObra> manosDeObra;
+    private List<Reparacion> reparaciones;
+    private List<Repuesto> repuestos;
+    private List<Tecnico> tecnicos;
+    private List<Vehiculo> vehiculos;
 
-
-
-
-
-
-
+    private static Controlador controlador;
+    private Controlador(){}
+    public static Controlador getControlador(){
+        return controlador;
+    }
     public void registrarCliente(String nombre, String tipoDocumento, String nroDocumento){
         return;
     }
