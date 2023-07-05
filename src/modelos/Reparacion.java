@@ -66,7 +66,9 @@ public class Reparacion {
             this.tecnicos.add(tecnico);
         }
     }
-
+    public int getCodigoReparacion(){
+        return codigoReparacion;
+    }
     public LocalDate getFecha(){
         return fecha;
     }
@@ -81,5 +83,8 @@ public class Reparacion {
     }
     public boolean reparacionTerminada(){
         return this.estado.equals("Terminada");
+    }
+    public Cliente getCliente() {
+        return cliente;
     }
 }

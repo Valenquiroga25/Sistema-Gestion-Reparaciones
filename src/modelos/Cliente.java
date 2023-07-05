@@ -13,12 +13,6 @@ public class Cliente {
     private Vehiculo vehiculo;
     private List<Reparacion> reparaciones;
 
-    public Cliente(String nombre, String tipoDocumento, String nroDocumento) {
-        this.nombre = nombre;
-        this.tipoDocumento = tipoDocumento;
-        this.nroDocumento = nroDocumento;
-    }
-
     public Cliente(String nombre, String tipoDocumento, String nroDocumento, float cuentaCorriente, float limiteCuentaCorriente, Vehiculo vehiculo) {
         this.nombre = nombre;
         this.tipoDocumento = tipoDocumento;
