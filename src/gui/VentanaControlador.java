@@ -1,4 +1,4 @@
-package Ventana;
+package gui;
 
 import javax.swing.*;
 import java.awt.*;
