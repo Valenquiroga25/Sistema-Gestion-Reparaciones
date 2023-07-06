@@ -61,7 +61,7 @@ public class Cliente {
     }
 
     public boolean limiteCreditoSuficiente(float costoReparacion){
-        return (costoReparacion < (this.cuentaCorriente + this.limiteCuentaCorriente));
+        return (costoReparacion <= (this.cuentaCorriente + this.limiteCuentaCorriente));
     }
     @Override
     public String toString() {

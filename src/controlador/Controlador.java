@@ -1,5 +1,6 @@
 package controlador;
 
+import excepciones.EstadoInvalidoException;
 import excepciones.LimiteCreditoInsuficienteException;
 import excepciones.MesInvalidoException;
 import excepciones.alreadyExistsExceptions.*;
@@ -8,17 +9,19 @@ import modelos.*;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class Controlador {
-    private List<Cliente> clientes;
-    private List<ManoDeObra> manosDeObra;
-    private List<Reparacion> reparaciones;
-    private List<Repuesto> repuestos;
-    private List<Tecnico> tecnicos;
-    private List<Vehiculo> vehiculos;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final List<Cliente> clientes;
+    private final List<ManoDeObra> manosDeObra;
+    private final List<Reparacion> reparaciones;
+    private final List<Repuesto> repuestos;
+    private final List<Tecnico> tecnicos;
+    private final List<Vehiculo> vehiculos;
 
     private static Controlador controlador;
     private Controlador(){
@@ -36,24 +39,28 @@ public class Controlador {
         return controlador;
     }
 
-    public void registrarCliente(String nombre, String tipoDocumento, String nroDocumento, float cuentaCorriente, float limiteCuentaCorriente, Vehiculo vehiculo) throws ClienteAlreadyExistsException{
+    public void registrarCliente(String nombre, String tipoDocumento, String nroDocumento, float cuentaCorriente, float limiteCuentaCorriente, String matriculaVehiculo) throws ClienteAlreadyExistsException, VehiculoNotFoundException {
         Optional<Cliente> clienteOp = Optional.ofNullable(buscarCliente(nroDocumento));
         if (clienteOp.isPresent()){
             throw new ClienteAlreadyExistsException("El cliente que esta intentando registrar, ya se encuentra registrado");
         }
-        else {
-            Cliente nuevoCliente = new Cliente(nombre, tipoDocumento, nroDocumento, cuentaCorriente, limiteCuentaCorriente, vehiculo);
-            clientes.add(nuevoCliente);
-            System.out.println("El cliente ha sido registrado exitosamente!" + nuevoCliente.toString());
+        Optional<Vehiculo> vehiculoOp = Optional.ofNullable(buscarVehiculo(matriculaVehiculo));
+        if (vehiculoOp.isEmpty()){
+            throw new VehiculoNotFoundException("El vehiculo de matricula " + matriculaVehiculo + " no se encuentra registrado en nuestra base de datos");
         }
+        Vehiculo vehiculo = vehiculoOp.get();
+        Cliente nuevoCliente = new Cliente(nombre, tipoDocumento, nroDocumento, cuentaCorriente, limiteCuentaCorriente, vehiculo);
+        clientes.add(nuevoCliente);
+        System.out.println("El cliente ha sido registrado exitosamente!" + nuevoCliente.toString());
+
     }
-    public void registrarVehiculo(String matricula, String marca, String modelo, Year anio) throws VehiculoAlreadyExistsException {
+    public void registrarVehiculo(String matricula, String marca, String modelo, int anio) throws VehiculoAlreadyExistsException {
         Optional<Vehiculo> vehiculoOp = Optional.ofNullable(buscarVehiculo(matricula));
         if (vehiculoOp.isPresent()){
             throw new VehiculoAlreadyExistsException("El vehiculo que esta intentando registrar ya se encuentra registrado");
         }
         else {
-            Vehiculo nuevoVehiculo = new Vehiculo(matricula, marca, modelo, anio);
+            Vehiculo nuevoVehiculo = new Vehiculo(matricula, marca, modelo, Year.of(anio));
             vehiculos.add(nuevoVehiculo);
             System.out.println("El vehiculo ha sido registrado exitosamente! " + nuevoVehiculo.toString());
         }
@@ -75,7 +82,7 @@ public class Controlador {
             throw new ManoDeObraAlreadyExistsException("La mano de obra que esta intentando registrar ya se encuentra registrada");
         }
         else {
-            ManoDeObra nuevaManoDeObra = new ManoDeObra(descripcion, precioPorHora);
+            ManoDeObra nuevaManoDeObra = new ManoDeObra(codigoManoDeObra, descripcion, precioPorHora);
             manosDeObra.add(nuevaManoDeObra);
             System.out.println("La mano de obra ha sido registrada exitosamente! " + nuevaManoDeObra.toString());
         }
@@ -86,15 +93,15 @@ public class Controlador {
             throw new RepuestoAlreadyExistsException("El repuesto que esta intentando registrar ya se encuentra registrado");
         }
         else {
-            Repuesto nuevoRepuesto = new Repuesto(descripcion, precio);
+            Repuesto nuevoRepuesto = new Repuesto(codigoRepuesto, descripcion, precio);
             repuestos.add(nuevoRepuesto);
             System.out.println("El repuesto ha sido registrado exitosamente! " + nuevoRepuesto.toString());
         }
     }
-    public void generarReparacion(LocalDate fecha, String nroDocumento, String matricula) throws ClienteNotFoundException, VehiculoNotFoundException {
-        Optional<Cliente> clienteOp = Optional.ofNullable(buscarCliente(nroDocumento));
+    public void generarReparacion(String fecha, String nroDocumentoCliente, String matricula) throws ClienteNotFoundException, VehiculoNotFoundException {
+        Optional<Cliente> clienteOp = Optional.ofNullable(buscarCliente(nroDocumentoCliente));
         if (clienteOp.isEmpty()){
-            throw new ClienteNotFoundException("El cliente de documento: " + nroDocumento + " no se encuentra en nuestra base de datos");
+            throw new ClienteNotFoundException("El cliente de documento: " + nroDocumentoCliente + " no se encuentra en nuestra base de datos");
         }
         else{
             Optional<Vehiculo> vehiculoOp = Optional.ofNullable(buscarVehiculo(matricula));
@@ -102,7 +109,7 @@ public class Controlador {
                 throw new VehiculoNotFoundException("El cliente de matricula: " + matricula + " no se encuentra en nuestra base de datos");
             }
             else {
-                Reparacion nuevaReparacion = new Reparacion(fecha, buscarCliente(nroDocumento), buscarVehiculo(matricula));
+                Reparacion nuevaReparacion = new Reparacion(LocalDate.parse(fecha, formatter), buscarCliente(nroDocumentoCliente), buscarVehiculo(matricula));
                 reparaciones.add(nuevaReparacion);
                 System.out.println("La reparacion codigo: " + nuevaReparacion.getCodigoReparacion() + " ha sido creada exitosamente");
             }
@@ -112,14 +119,16 @@ public class Controlador {
         Optional<Reparacion> reparacionOp = Optional.ofNullable(buscarReparacion(codigoReparacion));
         if (reparacionOp.isPresent()){
             Reparacion reparacion = reparacionOp.get();
-            float totalCobrar = reparacion.calcularCostoReparacion();
-            Cliente cliente = reparacion.getCliente();
-            if (!limiteCreditoSuficiente(reparacion.getCodigoReparacion())){
-                throw new LimiteCreditoInsuficienteException("El credito que tiene en la cuenta es insuficiente");
-            }
-            else {
-                cliente.pagarReparacion(totalCobrar);
-                System.out.println("La reparacion: " + reparacion.getCodigoReparacion() + " ha sido abonada exitosamente");
+            if (reparacion.reparacionTerminada()){
+                float totalCobrar = reparacion.calcularCostoReparacion();
+                Cliente cliente = reparacion.getCliente();
+                if (!limiteCreditoSuficiente(reparacion.getCodigoReparacion())){
+                    throw new LimiteCreditoInsuficienteException("El credito que tiene en la cuenta es insuficiente");
+                }
+                else {
+                    cliente.pagarReparacion(totalCobrar);
+                    System.out.println("La reparacion: " + reparacion.getCodigoReparacion() + " ha sido abonada exitosamente");
+                }
             }
         }
     }
@@ -166,7 +175,7 @@ public class Controlador {
             throw new ReparacionNotFoundException("La reparacion de codigo: " + codigoReparacion + " no se encuentra en nuestra base de datos");
         }
     }
-    public void agregarManoDeObra(int codigoReparacion, int codigoManoDeObra, int cantidadHoras, String nroDocumentoTecnico) throws ReparacionNotFoundException, ManoDeObraNotFoundException, TecnicoNotFoundEception {
+    public void agregarManoDeObra(int codigoReparacion, int codigoManoDeObra, int cantidadHoras, String nroDocumentoTecnico) throws ReparacionNotFoundException, ManoDeObraNotFoundException, TecnicoNotFoundEception, EstadoInvalidoException {
         if (cantidadHoras <= 0){
             throw new IllegalArgumentException("La cantidad de horas debe ser mayor a 0");
         }
@@ -185,9 +194,24 @@ public class Controlador {
         Reparacion reparacion = reparacionOp.get();
         ManoDeObra manoDeObra = manoDeObraOp.get();
         Tecnico tecnico = tecnicoOp.get();
+        reparacion.modificarEstado("En proceso");
         reparacion.agregarManoDeObra(manoDeObra, cantidadHoras, tecnico);
-        System.out.println("El repuesto ha sido agregado exitosamente!");
+        tecnico.agregarReparacion(reparacion);
+        tecnico.agregarManoDeObra(manoDeObra);
+        System.out.println("La mano de obra ha sido agregada exitosamente!");
     }
+    public void terminarReparacion(int codigoReparacion) throws EstadoInvalidoException, ReparacionNotFoundException {
+        Optional<Reparacion> reparacionOp = Optional.ofNullable(buscarReparacion(codigoReparacion));
+        if (reparacionOp.isPresent()){
+            Reparacion reparacion = reparacionOp.get();
+            reparacion.modificarEstado("Terminada");
+        }
+        else {
+            throw new ReparacionNotFoundException("La reparacion de codigo: " + codigoReparacion + " no se encuentra en nuestra base de datos");
+        }
+    }
+    // metodos privados
+
     private boolean limiteCreditoSuficiente(int codigoReparacion) throws ReparacionNotFoundException {
         Optional<Reparacion> reparacionOp = Optional.ofNullable(buscarReparacion(codigoReparacion));
         if (reparacionOp.isPresent()){
@@ -200,7 +224,7 @@ public class Controlador {
             throw new ReparacionNotFoundException("La reparacion de codigo: " + codigoReparacion + " no se encuentra en nuestra base de datos");
         }
     }
-    private Cliente buscarCliente(String nroDocumento){
+    public Cliente buscarCliente(String nroDocumento){
         for (Cliente cliente: clientes){
             if (cliente.soyEseCliente(nroDocumento)){
                 return cliente;

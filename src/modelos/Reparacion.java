@@ -85,4 +85,20 @@ public class Reparacion {
     public Cliente getCliente() {
         return cliente;
     }
+
+    @Override
+    public String toString() {
+        return "Reparacion{" +
+                "codigoReparacion=" + codigoReparacion +
+                ", fecha=" + fecha +
+                ", estado='" + estado + '\'' +
+                ", cliente=" + cliente +
+                ", vehiculo=" + vehiculo +
+                ", tecnicos=" + tecnicos +
+                ", itemsRepuesto=" + itemsRepuesto +
+                ", repuestos=" + repuestos +
+                ", manosDeObra=" + manosDeObra +
+                ", tareasPorReparacion=" + tareasPorReparacion +
+                '}';
+    }
 }

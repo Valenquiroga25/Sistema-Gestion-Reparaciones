@@ -33,7 +33,7 @@ public class Tecnico {
     }
     public float calcularSueldo(int mes) throws MesInvalidoException {
         if (mes > 12 || mes < 1){
-            throw new MesInvalidoException("El mes ingresado es invalido.");
+            throw new MesInvalidoException("El mes ingresado es invalido");
         }
         float total = 0;
         total += this.salarioBase;
