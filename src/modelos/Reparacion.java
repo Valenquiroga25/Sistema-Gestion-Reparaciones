@@ -33,7 +33,7 @@ public class Reparacion {
     }
 
     public void modificarEstado(String estado) throws EstadoInvalidoException {
-        if ((!estado.equals("En proceso")) && (!estado.equals("Terminada"))){
+        if (!(estado.equals("En proceso")) && !(estado.equals("Terminada"))){
             throw new EstadoInvalidoException("El estado ingresado no es valido. Ingrese estado \"En proceso\" o \"Terminada\"");
         }
         this.estado = estado;

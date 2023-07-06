@@ -49,27 +49,6 @@ public class Main {
         controlador.agregarManoDeObra(2, 200, 2, "13213213");
         controlador.agregarManoDeObra(3, 300, 1, "10101010");
 
-        // cobrar reparaciones
-//        controlador.terminarReparacion(3);
-//        controlador.terminarReparacion(2);
-//        controlador.terminarReparacion(1);
-//        System.out.println("cliente 3 cuenta: " + controlador.buscarCliente("44729962").getCuentaCorriente());
-//        System.out.println(controlador.costoReparacion(3));
-//        controlador.cobrarReparacion(3);
-//        System.out.println("cliente 3 cuenta: " + controlador.buscarCliente("44729962").getCuentaCorriente());
-//
-//        System.out.println("cliente 2 cuenta: " + controlador.buscarCliente("98798798").getCuentaCorriente());
-//        System.out.println(controlador.costoReparacion(2));
-//        controlador.cobrarReparacion(2);
-//        System.out.println("cliente 2 cuenta: " + controlador.buscarCliente("98798798").getCuentaCorriente());
-//
-//        System.out.println("cliente 1 cuenta: " + controlador.buscarCliente("12312312").getCuentaCorriente());
-//        System.out.println(controlador.costoReparacion(1));
-//        controlador.cobrarReparacion(1);
-//        System.out.println("cliente 1 cuenta: " + controlador.buscarCliente("12312312").getCuentaCorriente());
-
-
-
         new VentanaControlador();
     }
 }

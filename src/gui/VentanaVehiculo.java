@@ -69,18 +69,28 @@ public class VentanaVehiculo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (txtMatricula.getText().equals("") || txtMarca.getText().equals("") || txtModelo.getText().equals("") || txtAnio.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Alguno de los campos está vacío.");
-                    txtMatricula.setText("");
-                    txtMarca.setText("");
-                    txtModelo.setText("");
-                    txtAnio.setText("");
+                    JOptionPane.showMessageDialog(ventanaRegistrarVehiculo, "Alguno de los campos está vacío.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se aceptaron los datos.");
-                    txtMatricula.setText("");
-                    txtMarca.setText("");
-                    txtModelo.setText("");
-                    txtAnio.setText("");
+                    String matricula = txtMatricula.getText();
+                    String marca = txtMarca.getText();
+                    String modelo = txtModelo.getText();
+                    int anio = Integer.parseInt(txtAnio.getText());
+                    try {
+                        controlador.registrarVehiculo(matricula, marca, modelo, anio);
+                        JOptionPane.showMessageDialog(ventanaRegistrarVehiculo, "El vehiculo ha sido registrado exitosamente!");
+                    } catch (VehiculoAlreadyExistsException ex) {
+                        JOptionPane.showMessageDialog(ventanaRegistrarVehiculo, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        txtMatricula.setText("");
+                        txtMarca.setText("");
+                        txtModelo.setText("");
+                        txtAnio.setText("");
+                        throw new RuntimeException(ex);
+                    }
                 }
+                txtMatricula.setText("");
+                txtMarca.setText("");
+                txtModelo.setText("");
+                txtAnio.setText("");
             }
         });
 

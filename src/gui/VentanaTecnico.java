@@ -1,5 +1,8 @@
 package gui;
 
+import controlador.Controlador;
+import excepciones.alreadyExistsExceptions.TecnicoAlreadyExistsException;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,23 +15,27 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class VentanaTecnico {
-
+    Controlador controlador = Controlador.getControlador();
     public void abrirVentanaRegistrarTecnico() {
         JFrame ventanaRegistrarTecnico = new JFrame("Registrar técnico");
         ventanaRegistrarTecnico.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ventanaRegistrarTecnico.setLayout(new GridLayout(4, 2));
+        ventanaRegistrarTecnico.setLayout(new GridLayout(5, 2));
 
         JLabel lblNombreTecnico = new JLabel("Nombre");
         lblNombreTecnico.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         JTextField txtNombreTecnico = new JTextField();
 
-        JLabel lblEdadTecnico = new JLabel("Edad");
-        lblEdadTecnico.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-        JTextField txtEdadTecnico = new JTextField();
+        JLabel lblTipoDocumento = new JLabel("Tipo de documento");
+        lblTipoDocumento.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+        JTextField txtTipoDocumento = new JTextField();
 
-        JLabel lblCuitTecnico = new JLabel("Cuit");
-        lblCuitTecnico.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-        JTextField txtCuitTecnico = new JTextField();
+        JLabel lblNumeroDocumento = new JLabel("Número de documento");
+        lblNumeroDocumento.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+        JTextField txtNumeroDocumento = new JTextField();
+
+        JLabel lblSalarioBase = new JLabel("Salario Base");
+        lblSalarioBase.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+        JTextField txtSalarioBase = new JTextField();
 
         JButton btnAceptar = new JButton("Aceptar");
         JButton btnBorrar = new JButton("Borrar");
@@ -40,12 +47,15 @@ public class VentanaTecnico {
         panel.add(btnBorrar);
         panel.add(btnCancelar);
 
-        ventanaRegistrarTecnico.add(lblCuitTecnico);
-        ventanaRegistrarTecnico.add(txtCuitTecnico);
         ventanaRegistrarTecnico.add(lblNombreTecnico);
         ventanaRegistrarTecnico.add(txtNombreTecnico);
-        ventanaRegistrarTecnico.add(lblEdadTecnico);
-        ventanaRegistrarTecnico.add(txtEdadTecnico);
+        ventanaRegistrarTecnico.add(lblTipoDocumento);
+        ventanaRegistrarTecnico.add(txtTipoDocumento);
+        ventanaRegistrarTecnico.add(lblNumeroDocumento);
+        ventanaRegistrarTecnico.add(txtNumeroDocumento);
+        ventanaRegistrarTecnico.add(lblSalarioBase);
+        ventanaRegistrarTecnico.add(txtSalarioBase);
+
         ventanaRegistrarTecnico.add(new JLabel());
         ventanaRegistrarTecnico.add(panel);
 
@@ -56,27 +66,39 @@ public class VentanaTecnico {
         btnAceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (txtCuitTecnico.getText().equals("") || txtNombreTecnico.getText().equals("") || txtEdadTecnico.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Alguno de los campos está vacío.");
-                    txtCuitTecnico.setText("");
-                    txtNombreTecnico.setText("");
-                    txtEdadTecnico.setText("");
+                if (txtNombreTecnico.getText().equals("") || txtTipoDocumento.getText().equals("") || txtNumeroDocumento.getText().equals("") || txtSalarioBase.getText().equals("")) {
+                    JOptionPane.showMessageDialog(ventanaRegistrarTecnico, "Alguno de los campos está vacío.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se aceptaron los datos.");
-                    txtCuitTecnico.setText("");
-                    txtNombreTecnico.setText("");
-                    txtEdadTecnico.setText("");
+                    String nombre = txtNombreTecnico.getText();
+                    String tipoDoc = txtTipoDocumento.getText();
+                    String nroDoc = txtNumeroDocumento.getText();
+                    float salarioBase = Float.parseFloat(txtSalarioBase.getText());
+                    try {
+                        controlador.registrarTecnico(nombre, tipoDoc, nroDoc, salarioBase);
+                        JOptionPane.showMessageDialog(ventanaRegistrarTecnico, "El tecnico ha sido registrado exitosamente!");
+                    } catch (TecnicoAlreadyExistsException ex) {
+                        txtNombreTecnico.setText("");
+                        txtTipoDocumento.setText("");
+                        txtNumeroDocumento.setText("");
+                        txtSalarioBase.setText("");
+                        JOptionPane.showMessageDialog(ventanaRegistrarTecnico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        throw new RuntimeException(ex);
+                    }
                 }
+                txtNombreTecnico.setText("");
+                txtTipoDocumento.setText("");
+                txtNumeroDocumento.setText("");
+                txtSalarioBase.setText("");
             }
         });
 
         btnBorrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lógica para guardar los datos del cliente
-                txtCuitTecnico.setText("");
                 txtNombreTecnico.setText("");
-                txtEdadTecnico.setText("");
+                txtTipoDocumento.setText("");
+                txtNumeroDocumento.setText("");
+                txtSalarioBase.setText("");
             }
         });
 

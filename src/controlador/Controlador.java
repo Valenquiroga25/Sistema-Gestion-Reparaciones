@@ -115,7 +115,7 @@ public class Controlador {
             }
         }
     }
-    public void cobrarReparacion(int codigoReparacion) throws LimiteCreditoInsuficienteException, ReparacionNotFoundException {
+    public void cobrarReparacion(int codigoReparacion) throws Exception {
         Optional<Reparacion> reparacionOp = Optional.ofNullable(buscarReparacion(codigoReparacion));
         if (reparacionOp.isPresent()){
             Reparacion reparacion = reparacionOp.get();
@@ -126,9 +126,14 @@ public class Controlador {
                     throw new LimiteCreditoInsuficienteException("El credito que tiene en la cuenta es insuficiente");
                 }
                 else {
+                    System.out.println("Balance del cliente: " + cliente.getCuentaCorriente());
                     cliente.pagarReparacion(totalCobrar);
                     System.out.println("La reparacion: " + reparacion.getCodigoReparacion() + " ha sido abonada exitosamente");
+                    System.out.println("Balance nuevo del cliente: " + cliente.getCuentaCorriente());
                 }
+            }
+            else {
+                throw new Exception("El estado de la reparacion aun no se encuentra marcada como \"Terminada\"");
             }
         }
     }
@@ -232,7 +237,7 @@ public class Controlador {
         }
         return null;
     }
-    private Vehiculo buscarVehiculo(String matricula){
+    public Vehiculo buscarVehiculo(String matricula){
         for (Vehiculo vehiculo: vehiculos){
             if (vehiculo.soyEseVehiculo(matricula)){
                 return vehiculo;
@@ -240,7 +245,7 @@ public class Controlador {
         }
         return null;
     }
-    private Tecnico buscarTecnico(String nroDocumento){
+    public Tecnico buscarTecnico(String nroDocumento){
         for (Tecnico tecnico: tecnicos){
             if (tecnico.soyEseTecnico(nroDocumento)){
                 return tecnico;
@@ -248,7 +253,7 @@ public class Controlador {
         }
         return null;
     }
-    private Reparacion buscarReparacion(int codigoReparacion){
+    public Reparacion buscarReparacion(int codigoReparacion){
         for (Reparacion reparacion: reparaciones){
             if (reparacion.soyEsaReparacion(codigoReparacion)){
                 return reparacion;
@@ -256,7 +261,7 @@ public class Controlador {
         }
         return null;
     }
-    private Repuesto buscarRepuesto(int codigoRepuesto){
+    public Repuesto buscarRepuesto(int codigoRepuesto){
         for (Repuesto repuesto: repuestos){
             if (repuesto.soyEseRepuesto(codigoRepuesto)){
                 return repuesto;
@@ -264,7 +269,7 @@ public class Controlador {
         }
         return null;
     }
-    private ManoDeObra buscarManoDeObra(int codigoManoDeObra){
+    public ManoDeObra buscarManoDeObra(int codigoManoDeObra){
         for (ManoDeObra manoDeObra: manosDeObra){
             if (manoDeObra.soyEsaManoDeObra(codigoManoDeObra)){
                 return manoDeObra;
