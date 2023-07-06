@@ -76,7 +76,7 @@ public class Controlador {
             System.out.println("El tecnico ha sido registrado exitosamente! " + nuevoTecnico.toString());
         }
     }
-    public void registrarManoDeObra(int codigoManoDeObra, String descripcion, float precioPorHora) throws ManoDeObraAlreadyExistsException {     //codigo solo para chequear si la mano de obra ya existe
+    public void registrarManoDeObra(int codigoManoDeObra, String descripcion, float precioPorHora) throws ManoDeObraAlreadyExistsException {
         Optional<ManoDeObra> manoDeObraOp = Optional.ofNullable(buscarManoDeObra(codigoManoDeObra));
         if (manoDeObraOp.isPresent()){
             throw new ManoDeObraAlreadyExistsException("La mano de obra que esta intentando registrar ya se encuentra registrada");
@@ -103,7 +103,7 @@ public class Controlador {
         if (clienteOp.isEmpty()){
             throw new ClienteNotFoundException("El cliente de documento: " + nroDocumentoCliente + " no se encuentra en nuestra base de datos");
         }
-        else{
+        else {
             Optional<Vehiculo> vehiculoOp = Optional.ofNullable(buscarVehiculo(matricula));
             if (vehiculoOp.isEmpty()){
                 throw new VehiculoNotFoundException("El cliente de matricula: " + matricula + " no se encuentra en nuestra base de datos");
@@ -215,6 +215,7 @@ public class Controlador {
             throw new ReparacionNotFoundException("La reparacion de codigo: " + codigoReparacion + " no se encuentra en nuestra base de datos");
         }
     }
+
     // metodos privados
 
     private boolean limiteCreditoSuficiente(int codigoReparacion) throws ReparacionNotFoundException {
@@ -229,7 +230,7 @@ public class Controlador {
             throw new ReparacionNotFoundException("La reparacion de codigo: " + codigoReparacion + " no se encuentra en nuestra base de datos");
         }
     }
-    public Cliente buscarCliente(String nroDocumento){
+    private Cliente buscarCliente(String nroDocumento){
         for (Cliente cliente: clientes){
             if (cliente.soyEseCliente(nroDocumento)){
                 return cliente;
@@ -237,7 +238,7 @@ public class Controlador {
         }
         return null;
     }
-    public Vehiculo buscarVehiculo(String matricula){
+    private Vehiculo buscarVehiculo(String matricula){
         for (Vehiculo vehiculo: vehiculos){
             if (vehiculo.soyEseVehiculo(matricula)){
                 return vehiculo;
@@ -245,7 +246,7 @@ public class Controlador {
         }
         return null;
     }
-    public Tecnico buscarTecnico(String nroDocumento){
+    private Tecnico buscarTecnico(String nroDocumento){
         for (Tecnico tecnico: tecnicos){
             if (tecnico.soyEseTecnico(nroDocumento)){
                 return tecnico;
@@ -253,7 +254,7 @@ public class Controlador {
         }
         return null;
     }
-    public Reparacion buscarReparacion(int codigoReparacion){
+    private Reparacion buscarReparacion(int codigoReparacion){
         for (Reparacion reparacion: reparaciones){
             if (reparacion.soyEsaReparacion(codigoReparacion)){
                 return reparacion;
@@ -261,7 +262,7 @@ public class Controlador {
         }
         return null;
     }
-    public Repuesto buscarRepuesto(int codigoRepuesto){
+    private Repuesto buscarRepuesto(int codigoRepuesto){
         for (Repuesto repuesto: repuestos){
             if (repuesto.soyEseRepuesto(codigoRepuesto)){
                 return repuesto;
@@ -269,7 +270,7 @@ public class Controlador {
         }
         return null;
     }
-    public ManoDeObra buscarManoDeObra(int codigoManoDeObra){
+    private ManoDeObra buscarManoDeObra(int codigoManoDeObra){
         for (ManoDeObra manoDeObra: manosDeObra){
             if (manoDeObra.soyEsaManoDeObra(codigoManoDeObra)){
                 return manoDeObra;

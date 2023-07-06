@@ -24,7 +24,7 @@ public class VentanaReparacion {
         ventanaRegistrarReparacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventanaRegistrarReparacion.setLayout(new GridLayout(5, 2));
 
-        JLabel lblFechaReparacion = new JLabel("Fecha de reparación");
+        JLabel lblFechaReparacion = new JLabel("Fecha de reparación (YYYY-MM-DD)");
         lblFechaReparacion.setHorizontalAlignment(SwingConstants.CENTER);
         JTextField txtFechaReparacion = new JTextField();
 
