@@ -63,4 +63,16 @@ public class Tecnico {
     public boolean soyEseTecnico(String nroDocumentoChequear){
         return nroDocumentoChequear.equals(nroDocumento);
     }
+
+    @Override
+    public String toString() {
+        return "Tecnico{" +
+                "nombre='" + nombre + '\'' +
+                ", tipoDocumento='" + tipoDocumento + '\'' +
+                ", nroDocumento='" + nroDocumento + '\'' +
+                ", salarioBase=" + salarioBase +
+                ", manosDeObras=" + manosDeObras +
+                ", reparaciones=" + reparaciones +
+                '}';
+    }
 }

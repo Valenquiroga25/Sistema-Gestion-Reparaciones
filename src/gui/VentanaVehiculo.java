@@ -1,8 +1,12 @@
 package gui;
 
+import controlador.Controlador;
+import excepciones.alreadyExistsExceptions.VehiculoAlreadyExistsException;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Year;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class VentanaVehiculo {
+
+    public Controlador controlador = Controlador.getControlador();
 
     public void abrirVentanaRegistrarVehiculo() {
         JFrame ventanaRegistrarVehiculo = new JFrame("Registrar vehículo");

@@ -18,4 +18,13 @@ public class Repuesto {
     public boolean soyEseRepuesto(int codigoRepuesto){
         return this.codigoRepuesto == codigoRepuesto;
     }
+
+    @Override
+    public String toString() {
+        return "Repuesto{" +
+                "codigoRepuesto=" + codigoRepuesto +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                '}';
+    }
 }

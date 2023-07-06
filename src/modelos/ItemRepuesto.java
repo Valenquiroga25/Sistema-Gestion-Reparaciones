@@ -4,6 +4,7 @@ public class ItemRepuesto {
     private int cantidad;
     private Repuesto repuesto;
     public ItemRepuesto(Repuesto repuesto, int cantidad) {
+        this.repuesto = repuesto;
         this.cantidad = cantidad;
     }
 

@@ -28,7 +28,7 @@ public class Cliente {
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
-    public List<Reparacion> getReparacion() {
+    public List<Reparacion> getReparaciones() {
         return reparaciones;
     }
     public boolean soyEseCliente(String nroDocumentoChequear){
@@ -58,5 +58,21 @@ public class Cliente {
 
     public void pagarReparacion(float costoReparacion){
         this.cuentaCorriente -= costoReparacion;
+    }
+
+    public boolean limiteCreditoSuficiente(float costoReparacion){
+        return (costoReparacion < (this.cuentaCorriente + this.limiteCuentaCorriente));
+    }
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nombre='" + nombre + '\'' +
+                ", tipoDocumento='" + tipoDocumento + '\'' +
+                ", nroDocumento='" + nroDocumento + '\'' +
+                ", cuentaCorriente=" + cuentaCorriente +
+                ", limiteCuentaCorriente=" + limiteCuentaCorriente +
+                ", vehiculo=" + vehiculo +
+                ", reparaciones=" + reparaciones +
+                '}';
     }
 }

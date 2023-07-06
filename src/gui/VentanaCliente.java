@@ -1,13 +1,19 @@
 package gui;
 
+import controlador.Controlador;
+import excepciones.alreadyExistsExceptions.ClienteAlreadyExistsException;
+import excepciones.notFoundExceptions.ClienteNotFoundException;
+import modelos.Vehiculo;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Year;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 public class VentanaCliente {
-
+    public Controlador controlador = Controlador.getControlador();
     public void abrirVentanaRegistrarCliente() {
         JFrame ventanaRegistrarCliente = new JFrame("Registrar cliente");
         ventanaRegistrarCliente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -52,12 +58,12 @@ public class VentanaCliente {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (txtDocumento.getText().equals("") || txtNombre.getText().equals("") || txtTipoDocumento.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Alguno de los campos está vacío.");
+                    JOptionPane.showMessageDialog(ventanaRegistrarCliente, "Alguno de los campos está vacío.", "Error registrando el cliente", JOptionPane.ERROR_MESSAGE);
                     txtDocumento.setText("");
                     txtNombre.setText("");
                     txtTipoDocumento.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se aceptaron los datos.");
+                    JOptionPane.showMessageDialog(ventanaRegistrarCliente, "Se aceptaron los datos.", "Cliente registrado", JOptionPane.INFORMATION_MESSAGE);
                     txtDocumento.setText("");
                     txtNombre.setText("");
                     txtTipoDocumento.setText("");

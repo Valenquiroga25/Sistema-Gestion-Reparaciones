@@ -17,4 +17,14 @@ public class Vehiculo {
     public boolean soyEseVehiculo(String matriculaChequear){
         return matriculaChequear.equals(matricula);
     }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                "matricula='" + matricula + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", anio=" + anio +
+                '}';
+    }
 }

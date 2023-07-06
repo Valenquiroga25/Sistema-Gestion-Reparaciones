@@ -4,7 +4,6 @@ import excepciones.EstadoInvalidoException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Reparacion {
@@ -44,9 +43,8 @@ public class Reparacion {
         for (ItemRepuesto item: itemsRepuesto) {
             total += item.calcularSubtotal();
         }
-        for (ManoDeObra manoDeObra: manosDeObra){
-            TareaPorReparacion tarea = manoDeObra.getTareaPorReparacion();
-            total += tarea.calcularSubtotalTarea();
+        for (TareaPorReparacion tareaPorReparacion: tareasPorReparacion){
+            total += tareaPorReparacion.calcularSubtotalTarea();
         }
         return total;
     }
@@ -54,13 +52,13 @@ public class Reparacion {
         return this.codigoReparacion == codigoReparacion;
     }
     public void agregarRepuesto(Repuesto repuesto, int cantidad){
-        if (!this.estado.equals("Terminada")){
+        if (!reparacionTerminada()){
             this.repuestos.add(repuesto);
             this.itemsRepuesto.add(new ItemRepuesto(repuesto, cantidad));
         }
     }
     public void agregarManoDeObra(ManoDeObra manoDeObra, int cantidadHoras, Tecnico tecnico){
-        if (!this.estado.equals("Terminada")) {
+        if (!reparacionTerminada()) {
             this.manosDeObra.add(manoDeObra);
             this.tareasPorReparacion.add(new TareaPorReparacion(manoDeObra, cantidadHoras));
             this.tecnicos.add(tecnico);

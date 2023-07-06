@@ -2469,7 +2469,7 @@
 											"top": 270,
 											"width": 730.1962890625,
 											"height": 13,
-											"text": "-limiteCreditoSuficiente(precioReparacion: float, nroDocumentoCliente: String): boolean",
+											"text": "-limiteCreditoSuficiente(codigoReparacion: int): boolean",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8000,8 +8000,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGI4E3XI4aI4Do="
 									},
-									"name": "precioReparacion",
-									"type": "float"
+									"name": "codigoReparacion",
+									"type": "int"
 								},
 								{
 									"_type": "UMLParameter",
@@ -8011,15 +8011,6 @@
 									},
 									"type": "boolean",
 									"direction": "return"
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAGJGWyTo1KG+i8=",
-									"_parent": {
-										"$ref": "AAAAAAGI4E3XI4aI4Do="
-									},
-									"name": "nroDocumentoCliente",
-									"type": "String"
 								}
 							]
 						},

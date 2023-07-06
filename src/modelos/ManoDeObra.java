@@ -5,7 +5,6 @@ public class ManoDeObra {
     private int codigoManoDeObra;
     private String descripcion;
     private float precioPorHora;
-    private TareaPorReparacion tareaPorReparacion;
 
     public ManoDeObra(String descripcion, float precioPorHora) {
         this.codigoManoDeObra = ++contador;
@@ -25,7 +24,13 @@ public class ManoDeObra {
     public float getPrecioPorHora() {
         return precioPorHora;
     }
-    public TareaPorReparacion getTareaPorReparacion(){
-        return tareaPorReparacion;
+
+    @Override
+    public String toString() {
+        return "ManoDeObra{" +
+                "codigoManoDeObra=" + codigoManoDeObra +
+                ", descripcion='" + descripcion + '\'' +
+                ", precioPorHora=" + precioPorHora +
+                '}';
     }
 }
