@@ -115,7 +115,7 @@ public class Controlador {
             }
         }
     }
-    public void cobrarReparacion(int codigoReparacion) throws Exception {
+    public float cobrarReparacion(int codigoReparacion) throws Exception {
         Optional<Reparacion> reparacionOp = Optional.ofNullable(buscarReparacion(codigoReparacion));
         if (reparacionOp.isPresent()){
             Reparacion reparacion = reparacionOp.get();
@@ -130,11 +130,15 @@ public class Controlador {
                     cliente.pagarReparacion(totalCobrar);
                     System.out.println("La reparacion: " + reparacion.getCodigoReparacion() + " ha sido abonada exitosamente");
                     System.out.println("Balance nuevo del cliente: " + cliente.getCuentaCorriente());
+                    return totalCobrar;
                 }
             }
             else {
                 throw new Exception("El estado de la reparacion aun no se encuentra marcada como \"Terminada\"");
             }
+        }
+        else {
+            throw new ReparacionNotFoundException("La reparacion de codigo: " + codigoReparacion + " no se encuentra en nuestra base de datos");
         }
     }
     public float costoReparacion(int codigoReparacion) throws ReparacionNotFoundException {

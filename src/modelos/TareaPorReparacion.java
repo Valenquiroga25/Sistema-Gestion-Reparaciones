@@ -8,10 +8,6 @@ public class TareaPorReparacion {
         this.manoDeObra = manoDeObra;
         this.horasEmpleadas = horasEmpleadas;
     }
-
-    public int getHorasEmpleadas() {
-        return horasEmpleadas;
-    }
     public float calcularSubtotalTarea(){
         float total = 0;
         total += (manoDeObra.getPrecioPorHora() * horasEmpleadas);

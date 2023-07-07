@@ -13,7 +13,4 @@ public class ItemRepuesto {
         total += (repuesto.getPrecio() * cantidad);
         return total;
     }
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 }

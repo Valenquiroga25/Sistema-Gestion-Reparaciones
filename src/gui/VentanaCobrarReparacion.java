@@ -52,8 +52,8 @@ public class VentanaCobrarReparacion {
                 } else {
                     int codigoReparacion = Integer.parseInt(txtCodigoReparacion.getText());
                     try {
-                        controlador.cobrarReparacion(codigoReparacion);
-                        JOptionPane.showMessageDialog(ventanaCobrarReparacion, "La reparacion ha sido abonada exitosamente!", "Reparacion abonada", JOptionPane.INFORMATION_MESSAGE);
+                        float totalCobrar = controlador.cobrarReparacion(codigoReparacion);
+                        JOptionPane.showMessageDialog(ventanaCobrarReparacion, "La reparacion ha sido abonada exitosamente! Importe: " + totalCobrar, "Reparacion abonada", JOptionPane.INFORMATION_MESSAGE);
                     } catch (Exception ex ) {
                         txtCodigoReparacion.setText("");
                         JOptionPane.showMessageDialog(ventanaCobrarReparacion, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -70,9 +70,6 @@ public class Reparacion {
     public LocalDate getFecha(){
         return fecha;
     }
-    public List<ManoDeObra> getManosDeObra() {
-        return manosDeObra;
-    }
     public List<Tecnico> getTecnicos(){
         return tecnicos;
     }

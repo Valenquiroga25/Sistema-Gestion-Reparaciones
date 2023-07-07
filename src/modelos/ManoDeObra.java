@@ -10,15 +10,8 @@ public class ManoDeObra {
         this.descripcion = descripcion;
         this.precioPorHora = precioPorHora;
     }
-
     public boolean soyEsaManoDeObra(int codigoManoDeObra){
         return this.codigoManoDeObra == codigoManoDeObra;
-    }
-    public int getCodigoManoDeObra() {
-        return codigoManoDeObra;
-    }
-    public String getDescripcion() {
-        return descripcion;
     }
     public float getPrecioPorHora() {
         return precioPorHora;

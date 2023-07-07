@@ -52,14 +52,6 @@ public class Tecnico {
         }
         return total;
     }
-    public String getNroDocumento(){
-        return nroDocumento;
-    }
-
-    public String getNombre(){
-        return nombre;
-    }
-
     public boolean soyEseTecnico(String nroDocumentoChequear){
         return nroDocumentoChequear.equals(nroDocumento);
     }
