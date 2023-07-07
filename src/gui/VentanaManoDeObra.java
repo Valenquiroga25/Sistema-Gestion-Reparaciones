@@ -88,14 +88,6 @@ public class VentanaManoDeObra {
                 txtPrecioPorHora.setText("");
             }
         });
-
-        btnAceptar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
         btnBorrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -87,7 +87,6 @@ public class VentanaAgregarRepuesto {
         btnBorrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lógica para guardar los datos del cliente
                 txtCodigoReparacion.setText("");
                 txtCodigoRepuesto.setText("");
                 txtCantidad.setText("");

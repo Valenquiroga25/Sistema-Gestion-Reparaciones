@@ -23,7 +23,7 @@ public class Main {
 
         // registrar 3 tecnicos
         controlador.registrarTecnico("Ivo Bandoni", "DNI", "43243243", 80_000f);
-        controlador.registrarTecnico("Claudio Godio", "DNI", "13213213", 150_000f);
+        controlador.registrarTecnico("Cacho", "DNI", "13213213", 150_000f);
         controlador.registrarTecnico("Lionel Messi", "DNI", "10101010", 1_000_000f);
 
         // registrar 3 repuestos

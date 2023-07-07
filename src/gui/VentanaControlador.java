@@ -1,5 +1,8 @@
 package gui;
 
+import views.ClienteView;
+import views.ReparacionView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +35,8 @@ public class VentanaControlador extends JFrame {
         JButton btnCalcularSalarioTecnico = new JButton("Calcular salario de técnico");
         JButton btnCostoReparacion = new JButton("Costo de reparación");
         JButton btnTerminarReparacion = new JButton("Finalizar reparación");
+        JButton btnBuscarCliente = new JButton("Buscar cliente");
+        JButton btnBuscarReparacion = new JButton("Buscar reparación");
 
         VentanaCliente cliente = new VentanaCliente();
         VentanaVehiculo vehiculo = new VentanaVehiculo();
@@ -45,6 +50,8 @@ public class VentanaControlador extends JFrame {
         VentanaCalcularSalarioTecnico calcularSalario = new VentanaCalcularSalarioTecnico();
         VentanaCostoReparacion costoReparacion = new VentanaCostoReparacion();
         VentanaFinalizarReparacion finalizarReparacion = new VentanaFinalizarReparacion();
+        VentanaBuscarClienteView clienteView = new VentanaBuscarClienteView();
+        VentanaBuscarReparacionView reparacionView = new VentanaBuscarReparacionView();
 
         ventanaMenu.add(lblBienvenida);
         ventanaMenu.add(panel);
@@ -60,6 +67,8 @@ public class VentanaControlador extends JFrame {
         panel.add(btnCalcularSalarioTecnico);
         panel.add(btnCostoReparacion);
         panel.add(btnTerminarReparacion);
+        panel.add(btnBuscarCliente);
+        panel.add(btnBuscarReparacion);
 
         ventanaMenu.setVisible(true);
         ventanaMenu.pack();
@@ -146,6 +155,20 @@ public class VentanaControlador extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 finalizarReparacion.abrirVentanaFinalizarReparacion();
+            }
+        });
+
+        btnBuscarCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clienteView.abrirVentanaBuscarClienteView();
+            }
+        });
+
+        btnBuscarReparacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reparacionView.abrirVentanaBuscarReparacionView();
             }
         });
     }

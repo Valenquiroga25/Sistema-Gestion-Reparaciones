@@ -18,6 +18,10 @@ public class Vehiculo {
         return matriculaChequear.equals(matricula);
     }
 
+    public String getMatricula() {
+        return matricula;
+    }
+
     @Override
     public String toString() {
         return "Vehiculo{" +

@@ -6,6 +6,8 @@ import excepciones.MesInvalidoException;
 import excepciones.alreadyExistsExceptions.*;
 import excepciones.notFoundExceptions.*;
 import modelos.*;
+import views.ClienteView;
+import views.ReparacionView;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -109,7 +111,9 @@ public class Controlador {
                 throw new VehiculoNotFoundException("El cliente de matricula: " + matricula + " no se encuentra en nuestra base de datos");
             }
             else {
-                Reparacion nuevaReparacion = new Reparacion(LocalDate.parse(fecha, formatter), buscarCliente(nroDocumentoCliente), buscarVehiculo(matricula));
+                Cliente cliente = clienteOp.get();
+                Vehiculo vehiculo = vehiculoOp.get();
+                Reparacion nuevaReparacion = new Reparacion(LocalDate.parse(fecha, formatter), cliente, vehiculo);
                 reparaciones.add(nuevaReparacion);
                 System.out.println("La reparacion codigo: " + nuevaReparacion.getCodigoReparacion() + " ha sido creada exitosamente");
             }
@@ -220,6 +224,26 @@ public class Controlador {
         }
     }
 
+    // metodos para mostrar views
+    public ClienteView mostrarClienteView(String nroDocumentoCliente) throws ClienteNotFoundException {
+        Optional<Cliente> clienteOp = Optional.ofNullable(buscarCliente(nroDocumentoCliente));
+        if (clienteOp.isEmpty()){
+            throw new ClienteNotFoundException("El cliente de numero de documento: " + nroDocumentoCliente + " no se encuentra registrado en nuestra base de datos");
+        }
+        Cliente cliente = clienteOp.get();
+        ClienteView clienteView = new ClienteView(cliente.getNombre(), cliente.getTipoDocumento(), cliente.getNroDocumento(),
+                cliente.getCuentaCorriente(), cliente.getLimiteCuentaCorriente(),cliente.getVehiculo());
+        return clienteView;
+    }
+    public ReparacionView mostrarReparacionView(int codigoReparacion) throws ReparacionNotFoundException {
+        Optional<Reparacion> reparacionOp = Optional.ofNullable(buscarReparacion(codigoReparacion));
+        if (reparacionOp.isEmpty()){
+            throw new ReparacionNotFoundException("La reparacion de codigo: " + codigoReparacion + " no se encuentra en nuestra base de datos");
+        }
+        Reparacion reparacion = reparacionOp.get();
+        ReparacionView reparacionView = new ReparacionView(reparacion.getCodigoReparacion(), reparacion.getFecha(), reparacion.getEstado(), reparacion.getCliente(), reparacion.getVehiculo());
+        return reparacionView;
+    }
     // metodos privados
 
     private boolean limiteCreditoSuficiente(int codigoReparacion) throws ReparacionNotFoundException {

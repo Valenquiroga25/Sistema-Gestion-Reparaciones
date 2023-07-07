@@ -64,6 +64,12 @@ public class Reparacion {
             this.tecnicos.add(tecnico);
         }
     }
+    public String getEstado() {
+        return estado;
+    }
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
     public int getCodigoReparacion(){
         return codigoReparacion;
     }

@@ -1,8 +1,5 @@
 package modelos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Cliente {
 
     private String nombre;
@@ -23,8 +20,23 @@ public class Cliente {
     public boolean soyEseCliente(String nroDocumentoChequear){
         return nroDocumentoChequear.equals(nroDocumento);
     }
+    public String getNombre() {
+        return nombre;
+    }
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+    public String getNroDocumento() {
+        return nroDocumento;
+    }
     public float getCuentaCorriente() {
         return cuentaCorriente;
+    }
+    public float getLimiteCuentaCorriente() {
+        return limiteCuentaCorriente;
+    }
+    public Vehiculo getVehiculo() {
+        return vehiculo;
     }
     public void pagarReparacion(float costoReparacion){
         this.cuentaCorriente -= costoReparacion;
