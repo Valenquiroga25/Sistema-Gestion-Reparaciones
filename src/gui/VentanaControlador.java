@@ -21,7 +21,8 @@ public class VentanaControlador extends JFrame {
         lblBienvenida.setName("label");
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(7,2));
+        panel.setBorder(BorderFactory.createEmptyBorder(2,3,2,3));
+        panel.setLayout(new GridLayout(8,2));
 
         JButton btnRegistrarCliente = new JButton("Registrar cliente");
         JButton btnRegistrarVehiculo = new JButton("Registrar vehículo");
@@ -41,7 +42,7 @@ public class VentanaControlador extends JFrame {
         VentanaCliente cliente = new VentanaCliente();
         VentanaVehiculo vehiculo = new VentanaVehiculo();
         VentanaReparacion reparacion = new VentanaReparacion();
-        VentanaAgregarRepuesto Agregarrepuesto = new VentanaAgregarRepuesto();
+        VentanaAgregarRepuesto AgregarRepuesto = new VentanaAgregarRepuesto();
         VentanaTecnico tecnico = new VentanaTecnico();
         VentanaAgregarManoDeObra AgregarManoDeObra = new VentanaAgregarManoDeObra();
         VentanaManoDeObra manoDeObra = new VentanaManoDeObra();
@@ -119,7 +120,7 @@ public class VentanaControlador extends JFrame {
         btnAgregarRepuesto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Agregarrepuesto.abrirVentanaAgregarRepuesto();
+                AgregarRepuesto.abrirVentanaAgregarRepuesto();
             }
         });
 
