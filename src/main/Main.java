@@ -2,14 +2,13 @@ package main;
 
 import controlador.Controlador;
 import excepciones.EstadoInvalidoException;
-import excepciones.LimiteCreditoInsuficienteException;
-import excepciones.MesInvalidoException;
 import excepciones.alreadyExistsExceptions.*;
 import excepciones.notFoundExceptions.*;
 import gui.VentanaControlador;
 
+
 public class Main {
-    public static void main(String[] args) throws VehiculoAlreadyExistsException, VehiculoNotFoundException, ClienteAlreadyExistsException, TecnicoAlreadyExistsException, RepuestoAlreadyExistsException, ManoDeObraAlreadyExistsException, ClienteNotFoundException, ReparacionNotFoundException, RepuestoNotFoundException, TecnicoNotFoundEception, ManoDeObraNotFoundException, MesInvalidoException, EstadoInvalidoException, LimiteCreditoInsuficienteException {
+    public static void main(String[] args) throws VehiculoAlreadyExistsException, VehiculoNotFoundException, ClienteAlreadyExistsException, TecnicoAlreadyExistsException, RepuestoAlreadyExistsException, ManoDeObraAlreadyExistsException, ClienteNotFoundException, ReparacionNotFoundException, RepuestoNotFoundException, TecnicoNotFoundEception, ManoDeObraNotFoundException, EstadoInvalidoException{
         Controlador controlador = Controlador.getControlador();
         // registrar 3 vehiculos
         controlador.registrarVehiculo("KAI378", "Nissan", "Tiida", 2013);

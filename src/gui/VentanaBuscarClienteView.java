@@ -37,7 +37,7 @@ public class VentanaBuscarClienteView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (txtBuscarCliente.getText().equals("")){
-                    JOptionPane.showMessageDialog(ventanaMostrarClienteView, "Alguno de los campos está vacío.", "Error mostrando el cliente", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(ventanaMostrarClienteView, "El campo está vacío.", "Error mostrando el cliente", JOptionPane.ERROR_MESSAGE);
                 }
                 else {
                     try {

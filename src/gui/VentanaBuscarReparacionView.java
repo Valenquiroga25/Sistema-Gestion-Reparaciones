@@ -36,7 +36,7 @@ public class VentanaBuscarReparacionView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (txtBuscarReparacion.getText().equals("")){
-                    JOptionPane.showMessageDialog(ventanaBuscarReparacionView, "Alguno de los campos está vacío.", "Error mostrando la reparacion", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(ventanaBuscarReparacionView, "El campo está vacío.", "Error mostrando la reparacion", JOptionPane.ERROR_MESSAGE);
                 }
                 else {
                     int codigoReparacion = Integer.parseInt(txtBuscarReparacion.getText());
